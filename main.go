@@ -22,7 +22,7 @@ type configMd struct {
 var conf = configMd{
 	AccessId:   "<you accessId>",
 	AccessKey:  "<you accessKey>",
-	DomainName: "<you domain name>",
+	DomainName: "<you domainName>",
 	RegionId:   "cn-hangzhou",
 	RecordType: "A",
 }
@@ -39,7 +39,7 @@ func globalRequest() ( *dns.Client, error) {
 	return dns.NewClient(config)
 }
 
-
+// 获取RecordId和原ip
 func getRecordId() (string, string,  error) {
 	client, err := globalRequest()
 	if err != nil{
@@ -63,6 +63,7 @@ func getRecordId() (string, string,  error) {
 	return "", "", errors.New("This DNS record does not exist:" + conf.RR)
 }
 
+// 设置dns记录
 func setDNSrecord(recordId , ipAddr string) error {
 	client, err := globalRequest()
 	if err != nil{
